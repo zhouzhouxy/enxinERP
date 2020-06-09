@@ -7,6 +7,7 @@ import com.asura.enxin.mapper.MProcedureModuleMapper;
 import com.asura.enxin.service.IMProcedureModuleService;
 import com.asura.enxin.service.IMProcedureService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,16 @@ public class MProcedureModuleServiceImpl extends ServiceImpl<MProcedureModuleMap
         qw.lambda().eq(MProcedureModule::getParentId,id);
         return procedureModuleMapper.selectList(qw);
 
+    }
+
+    //根据父Id和产品名称组成唯一修改工序物料表中的补充数量
+    @Transactional
+    @Override
+    public void updateRenewAmount(Integer outAmount,Integer id, String productId) {
+        UpdateWrapper<MProcedureModule> uw = new UpdateWrapper<>();
+        uw.lambda().set(MProcedureModule::getRenewAmount,outAmount)
+                .eq(MProcedureModule::getParentId,id)
+                .eq(MProcedureModule::getProductId,productId);
+        procedureModuleMapper.update(new MProcedureModule(),uw);
     }
 }

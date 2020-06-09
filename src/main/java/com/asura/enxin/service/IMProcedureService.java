@@ -23,4 +23,6 @@ public interface IMProcedureService extends IService<MProcedure> {
     MProcedure queryById(Integer pId);
 
     List<MProcedure> selectListByPId(Integer id);
+
+    MProcedure queryOneByOther(String workOrder, String procedureName);
 }

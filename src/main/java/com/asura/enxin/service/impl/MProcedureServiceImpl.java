@@ -60,4 +60,14 @@ public class MProcedureServiceImpl extends ServiceImpl<MProcedureMapper, MProced
         qw.lambda().eq(MProcedure::getParentId,id);
         return  mapper.selectList(qw);
     }
+
+    //根据父Id和工序名称查询单行数据
+    @Override
+    public MProcedure queryOneByOther(String workOrder, String procedureName) {
+        Integer pId= Integer.valueOf(workOrder);
+        QueryWrapper<MProcedure> qw = new QueryWrapper<>();
+       qw.lambda().eq(MProcedure::getParentId,pId)
+               .eq(MProcedure::getProcedureName,procedureName);
+        return mapper.selectOne(qw);
+    }
 }

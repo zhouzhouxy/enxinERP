@@ -118,4 +118,10 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements IS
         Page<SPay> sPayPage = payMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);
         return new PageResult<>(sPayPage.getTotal(),sPayPage.getRecords());
     }
+
+    @Transactional
+    @Override
+    public void updateSpay(SPay sPay) {
+        payMapper.updateById(sPay);
+    }
 }

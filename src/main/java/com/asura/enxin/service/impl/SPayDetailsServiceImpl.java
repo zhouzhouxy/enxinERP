@@ -7,12 +7,15 @@ import com.asura.enxin.mapper.SPayDetailsMapper;
 import com.asura.enxin.service.ISPayDetailsService;
 import com.asura.enxin.service.ISPayService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * <p>
@@ -48,6 +51,35 @@ public class SPayDetailsServiceImpl extends ServiceImpl<SPayDetailsMapper, SPayD
         dto.setSPay(sPay);
         dto.setList(list);
         return dto;
+    }
+
+    //修改出库标志和确认出库件数
+    @Transactional
+    @Override
+    public void updatePaidAmountAndPayTag(Integer outAmount, Integer sdId) {
+        UpdateWrapper<SPayDetails> uw = new UpdateWrapper<>();
+        uw.lambda().set(SPayDetails::getPaidAmount, BigDecimal.valueOf(outAmount))  //确认出库件数
+                    .set(SPayDetails::getPayTag,"2")    //表示已调度
+                .eq(SPayDetails::getId,sdId);
+        detailsMapper.update(new SPayDetails(),uw);
+    }
+
+    @Override
+    public SPayDetails queryById(Integer sdId) {
+        return detailsMapper.selectById(sdId);
+    }
+
+    //通过父id判断是否都已经被调度了
+    @Override
+    public Boolean isAllPayTagPass(Integer id) {
+        List<SPayDetails> list = queryListByPId(id);
+        AtomicReference<Boolean> flag= new AtomicReference<>(true);
+        list.forEach(item->{
+            if(item.getPayTag().equals("1")){
+                flag.set(false);
+            }
+        });
+        return flag.get();
     }
 
     public List<SPayDetails> queryListByPId(Integer pId){

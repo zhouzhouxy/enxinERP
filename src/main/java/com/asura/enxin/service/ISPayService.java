@@ -29,4 +29,6 @@ public interface ISPayService extends IService<SPay> {
     void passCheck(SPay sPay);
 
     PageResult<SPay> querySPayByCondition(SGatherConditionDto dto);
+
+    void updateSpay(SPay sPay);
 }

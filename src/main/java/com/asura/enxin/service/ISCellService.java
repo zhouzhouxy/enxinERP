@@ -26,4 +26,6 @@ public interface ISCellService extends IService<SCell> {
     SCell queryScellByProductId(String productId);
 
     void dispatcher(Integer entryAmount, Integer gdId, Integer scellId);
+
+    void outDispatcher(Integer outAmount, Integer sdId, Integer sCellId);
 }

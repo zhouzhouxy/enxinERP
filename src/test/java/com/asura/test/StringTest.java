@@ -24,4 +24,13 @@ public class StringTest {
             System.out.println(split[i]);
         }
     }
+
+    @Test
+    public void t2(){
+        String str="派工单14sdsds4-组装34";
+        int i = str.indexOf("-");
+        System.out.println(i);
+        System.out.println(str.substring(3, i));
+        System.out.println(str.substring(i+1, str.length()));
+    }
 }

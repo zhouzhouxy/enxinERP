@@ -17,4 +17,10 @@ public interface ISPayDetailsService extends IService<SPayDetails> {
     void insert(SPayDetails payDetails);
 
     SPayDto queryByPId(Integer pId);
+
+    void updatePaidAmountAndPayTag(Integer outAmount, Integer sdId);
+
+    SPayDetails queryById(Integer sdId);
+
+    Boolean isAllPayTagPass(Integer id);
 }

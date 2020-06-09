@@ -33,4 +33,10 @@ public class BigDecimalTest {
         BigDecimal b3=new BigDecimal(5);
         System.out.println(b1.multiply(b3));
     }
+
+    @Test
+    public void t3(){
+        BigDecimal b=null;
+        System.out.println(b.add(BigDecimal.valueOf(12)));
+    }
 }

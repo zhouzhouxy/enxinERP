@@ -82,6 +82,7 @@ public class SCellController {
     }
     }
 
+    //入库调度
     @GetMapping("/dispatcher")
     public ResponseEntity<Result> dispatcher(Integer entryAmount,Integer gdId,Integer scellId){
         try {
@@ -93,5 +94,16 @@ public class SCellController {
         }
     }
 
+    //出库调度
+    @GetMapping("/out-dispatcher")
+    public ResponseEntity<Result> outDispatcher(Integer outAmount,Integer sdId,Integer sCellId){
+        try {
+            isCellService.outDispatcher(outAmount,sdId,sCellId);
+            return ResponseEntity.ok(new Result("出库调度成功",true));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
