@@ -183,7 +183,7 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
                 sPay.setPayId(idGenerator.generatorSpayId());
                 sPay.setReason("1");
                 sPay.setCheckTag("1");
-                sPay.setCostPriceSum(item.getDemandAmount());
+
                 sPay.setReasonexact("派工单"+item.getParentId()+"-"+item.getProcedureName());
                 sPay.setPayTag("1");
                 //根据procedureId查询细节
@@ -191,7 +191,9 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
 //                List<MDesignProcedureModule> modules = procedureModuleService.selectByPId(item.getId());
                 //查询每个工序需要多少物料
                 BigDecimal s=modules.stream().map(MProcedureModule::getAmount).reduce(BigDecimal.ZERO,BigDecimal::add);
+                BigDecimal s2=modules.stream().map(MProcedureModule::getSubtotal).reduce(BigDecimal.ZERO,BigDecimal::add);
 
+                sPay.setCostPriceSum(s2);
                 sPay.setAmountSum(s);
                 Integer pId = isPayService.insert(sPay);
                 //循环添加出库明细表
@@ -200,9 +202,7 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
                     payDetails.setParentId(pId);
                     payDetails.setProductName(item2.getProductName());
                     payDetails.setProductId(item2.getProductId());
-//                    payDetails.setProductDescribe(item2.getProductDescribe());
                     payDetails.setAmount(item2.getAmount());
-//                    payDetails.setAmountUnit(item2.getAmountUnit());
                     payDetails.setCostPrice(item2.getCostPrice());
                     payDetails.setSubtotal(item2.getAmount().multiply(item2.getCostPrice()));
                     payDetails.setPayTag("1");

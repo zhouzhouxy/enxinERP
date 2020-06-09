@@ -1,6 +1,9 @@
 package com.asura.enxin.service;
 
 import com.asura.enxin.entity.SGather;
+import com.asura.enxin.entity.dto.SGatherConditionDto;
+import com.asura.enxin.entity.dto.StockDto;
+import com.asura.enxin.entity.vo.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +16,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISGatherService extends IService<SGather> {
 
+    void addSGather(StockDto dto);
+
+    PageResult<SGather> querySGather(SGatherConditionDto dto);
+
+    StockDto queryById(Integer id);
+
+    void passCheck(SGather sGather);
+
+    void passDispatcher(Integer id);
 }

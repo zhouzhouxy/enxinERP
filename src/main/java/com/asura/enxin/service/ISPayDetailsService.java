@@ -1,6 +1,7 @@
 package com.asura.enxin.service;
 
 import com.asura.enxin.entity.SPayDetails;
+import com.asura.enxin.entity.dto.SPayDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISPayDetailsService extends IService<SPayDetails> {
 
     void insert(SPayDetails payDetails);
+
+    SPayDto queryByPId(Integer pId);
 }

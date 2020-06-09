@@ -117,4 +117,19 @@ public class IdGenerator {
         sb.append(spayId);
         return sb.toString();
     }
+    public String generatorStoreId(){
+        StringBuffer sb=new StringBuffer();
+        sb.append("040200").append(DateUtil.format(LocalDateTime.now(),"yyyyMMdd"));
+        String spayId = stringRedisTemplate.opsForValue().increment("storeId", 1).toString();
+        sb.append(spayId);
+        return sb.toString();
+    }
+
+    public String generatorGatherId(){
+        StringBuffer sb=new StringBuffer();
+        sb.append("040800").append(DateUtil.format(LocalDateTime.now(),"yyyyMMdd"));
+        String gatherId=stringRedisTemplate.opsForValue().increment("gatherId",1).toString();
+        sb.append(gatherId);
+        return sb.toString();
+    }
 }

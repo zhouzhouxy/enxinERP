@@ -86,7 +86,26 @@ public class GeneratorId {
         System.out.println(sb.append(stringRedisTemplate.opsForValue().get("spayId")));
     }
 
+    @Test
+    public void t8(){
+//        04020020200601100001
+        System.out.println();
+        StringBuffer sb=new StringBuffer();
+        sb.append("040200").append(DateUtil.format(LocalDateTime.now(),"yyyyMMdd"));
+        stringRedisTemplate.opsForValue().set("storeId","100000");
+        System.out.println(sb.append(stringRedisTemplate.opsForValue().get("storeId")));
+    }
 
+
+    @Test
+    public void t9(){
+//      04080020200605100001
+        System.out.println();
+        StringBuffer sb=new StringBuffer();
+        sb.append("040800").append(DateUtil.format(LocalDateTime.now(),"yyyyMMdd"));
+        stringRedisTemplate.opsForValue().set("gatherId","100000");
+        System.out.println(sb.append(stringRedisTemplate.opsForValue().get("gatherId")));
+    }
 }
 
 

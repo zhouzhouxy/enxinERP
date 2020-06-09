@@ -1,6 +1,9 @@
 package com.asura.enxin.service;
 
 import com.asura.enxin.entity.SPay;
+import com.asura.enxin.entity.dto.SGatherConditionDto;
+import com.asura.enxin.entity.dto.StockDto;
+import com.asura.enxin.entity.vo.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,4 +17,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISPayService extends IService<SPay> {
 
     Integer insert(SPay sPay);
+
+    PageResult<SPay> queryAllSPay(Integer pageNum, Integer pageSize);
+
+    SPay querySPayById(Integer id);
+
+    void addSPayAndDetails(StockDto dto);
+
+    PageResult<SPay> querySPay(SGatherConditionDto dto);
+
+    void passCheck(SPay sPay);
+
+    PageResult<SPay> querySPayByCondition(SGatherConditionDto dto);
 }

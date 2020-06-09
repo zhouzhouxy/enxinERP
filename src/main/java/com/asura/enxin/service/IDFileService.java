@@ -64,4 +64,8 @@ public interface IDFileService extends IService<DFile> {
     PageResult<DFile> queryProductByCondition(MaterialDto dto);
 
     Boolean isPassProcedure(String pId);
+
+    void updateStockTag(Integer id);
+
+    List<DFile> queryListByCondition(DFileDto dto);
 }

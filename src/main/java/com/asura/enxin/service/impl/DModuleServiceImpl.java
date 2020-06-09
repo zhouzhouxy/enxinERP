@@ -177,6 +177,8 @@ public class DModuleServiceImpl extends ServiceImpl<DModuleMapper, DModule> impl
         if(dto.getDate2()!=null){
             qw.lambda().lt(DModule::getRegisterTime,dto.getDate2());
         }
+
+
         Page<DModule> dModulePage = moduleMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);
 
        return new PageResult<>(dModulePage.getTotal(),dModulePage.getRecords());

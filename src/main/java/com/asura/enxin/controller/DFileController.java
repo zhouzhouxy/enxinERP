@@ -167,5 +167,10 @@ public class DFileController {
             return ResponseEntity.ok(list);
     }
 
+    @PostMapping("/queryListByCondition")
+    public ResponseEntity<List<DFile>> queryListByCondition(@RequestBody DFileDto dto){
+        List<DFile> list= idFileService.queryListByCondition(dto);
+        return ResponseEntity.ok(list);
+    }
 
 }

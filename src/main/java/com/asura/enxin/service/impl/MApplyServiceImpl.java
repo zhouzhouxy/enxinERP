@@ -101,7 +101,7 @@ public class MApplyServiceImpl extends ServiceImpl<MApplyMapper, MApply> impleme
             qw.lambda().gt(MApply::getRegisterTime,dto.getDate1());
         }
         if(dto.getDate2()!=null){
-            qw.lambda().gt(MApply::getRegisterTime,dto.getDate1());
+            qw.lambda().lt(MApply::getRegisterTime,dto.getDate2());
         }
         qw.select("distinct apply_id,  DESIGNER, REGISTER, REGISTER_TIME, remark,check_tag ");
         Page<MApply> mApplyPage = applyMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);

@@ -74,6 +74,9 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     //分页查询所有没有通过审核以及没有被逻辑删除
     @Override
     public PageResult<DFile> queryDFileByCheck(Integer pageSize, Integer pageNum) {
+        QueryWrapper<DFile> wrapper = new QueryWrapper<>();
+        wrapper.lambda().ne(DFile::getCheckTag,"1").ne(DFile::getDesignProcedureTag,"1");
+
 
         QueryWrapper<DFile> qw=new QueryWrapper<>();
         qw.lambda().ne(DFile::getCheckTag,"1")      //未通过审核已经等待审核
@@ -148,6 +151,8 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         System.out.println(dFilePage.getRecords());
         return new PageResult<>(dFilePage.getTotal(),dFilePage.getRecords());
     }
+
+
 
     //档案变更
     @Override
@@ -283,6 +288,31 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         }
     }
 
+    //修改库存状态
+    @Transactional
+    @Override
+    public void updateStockTag(Integer id) {
+        UpdateWrapper<DFile> uw = new UpdateWrapper<>();
+        uw.lambda().set(DFile::getDesignCellTag,"1").eq(DFile::getId,id);
+        fileMapper.update(new DFile(),uw);
+    }
+
+    @Override
+    public List<DFile> queryListByCondition(DFileDto dto) {
+        QueryWrapper<DFile> qw=new QueryWrapper();
+        if(!StringUtils.isEmpty(dto.getFirstKindId())){
+            qw.lambda().eq(DFile::getFirstKindId,dto.getFirstKindId());
+        }
+        if(!StringUtils.isEmpty(dto.getSecondKindId())){
+            qw.lambda().eq(DFile::getSecondKindId,dto.getSecondKindId());
+        }
+        if(!StringUtils.isEmpty(dto.getThirdKindId())){
+            qw.lambda().eq(DFile::getThirdKindId,dto.getThirdKindId());
+        }
+        qw.lambda().eq(DFile::getCheckTag,"1");
+        return fileMapper.selectList(qw);
+    }
+
     @Override
     public List<DFile> queryAllProduct() {
         QueryWrapper<DFile> qw = new QueryWrapper<>();
@@ -308,6 +338,6 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
     }
 
 
-    //根据产品Id查看产品详情
+    //
 
 }
