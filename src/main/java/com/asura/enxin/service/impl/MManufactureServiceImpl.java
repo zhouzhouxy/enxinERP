@@ -214,8 +214,6 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
         manufactureMapper.updateById(manufacture);
     }
 
-
-
     @Override
     public PageResult<MManufacture> queryByCondtion(ApplyConditionDto dto) {
         QueryWrapper<MManufacture> qw = new QueryWrapper<>();
@@ -237,6 +235,9 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
         if(StringUtils.isNotBlank(dto.getState())){
             qw.lambda().eq(MManufacture::getCheckTag,dto.getState());
         }
+        if(StringUtils.isNotBlank(dto.getManufactureProcedureTag())){
+            qw.lambda().eq(MManufacture::getManufactureProcedureTag,dto.getManufactureProcedureTag());
+        }
         Page<MManufacture> mApplyPage = manufactureMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);
 
         return new PageResult<>(mApplyPage.getTotal(),mApplyPage.getRecords());
@@ -245,6 +246,12 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
     @Override
     public MManufacture queryManufactureById(Integer pId) {
         return manufactureMapper.selectById(pId);
+    }
+
+    @Transactional
+    @Override
+    public void updateManufacture(MManufacture mManufacture) {
+        manufactureMapper.updateById(mManufacture);
     }
 
 

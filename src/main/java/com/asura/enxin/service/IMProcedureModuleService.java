@@ -23,4 +23,6 @@ public interface IMProcedureModuleService extends IService<MProcedureModule> {
     List<MProcedureModule> selectByPId(Integer id);
 
     void updateRenewAmount(Integer outAmout,Integer id, String productId);
+
+    void updateMProcedureModule(MProcedureModule mp);
 }

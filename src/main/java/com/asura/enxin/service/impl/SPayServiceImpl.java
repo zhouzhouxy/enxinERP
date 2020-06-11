@@ -46,10 +46,16 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements IS
         return sPay.getId();
     }
 
+    //查询出库调度
     @Override
     public PageResult<SPay> queryAllSPay(Integer pageNum, Integer pageSize) {
         QueryWrapper<SPay> qw = new QueryWrapper<>();
-        qw.lambda().ne(SPay::getAmountSum,"0").eq(SPay::getCheckTag,"1");
+        //物料总成不能为0
+        qw.lambda().ne(SPay::getAmountSum,"0").
+                //必须审核通过
+                eq(SPay::getCheckTag,"1").
+                //只查询出库标记为已标记的
+                eq(SPay::getPayTag,"1");
         Page<SPay> sPayPage = payMapper.selectPage(new Page<>(pageNum, pageSize), qw);
         return new PageResult<>(sPayPage.getTotal(),sPayPage.getRecords());
     }
@@ -65,7 +71,7 @@ public class SPayServiceImpl extends ServiceImpl<SPayMapper, SPay> implements IS
         SPay sPay = dto.getSPay();
         sPay.setPayId(idGenerator.generatorSpayId());
         sPay.setPaidAmountSum(BigDecimal.valueOf(0));
-        sPay.setCheckTag("1");
+        sPay.setCheckTag("0");
         sPay.setPayTag("1");
         //插入
         Integer insert = insert(sPay);

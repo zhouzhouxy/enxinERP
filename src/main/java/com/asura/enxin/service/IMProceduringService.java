@@ -1,6 +1,9 @@
 package com.asura.enxin.service;
 
+import com.asura.enxin.entity.MProcedure;
 import com.asura.enxin.entity.MProceduring;
+import com.asura.enxin.entity.dto.InnerProduction2Dto;
+import com.asura.enxin.entity.dto.InnerProductionDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMProceduringService extends IService<MProceduring> {
 
+    void addProceduringAndModule(InnerProduction2Dto dto);
+
+    MProceduring queryOneByMProcedure(MProcedure mProcedure);
+
+    void checkProceduringAndModule(InnerProductionDto dto);
 }

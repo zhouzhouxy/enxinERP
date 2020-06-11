@@ -29,4 +29,6 @@ public interface IMManufactureService extends IService<MManufacture> {
     PageResult<MManufacture> queryByCondtion(ApplyConditionDto dto);
 
     MManufacture queryManufactureById(Integer pId);
+
+    void updateManufacture(MManufacture mManufacture);
 }

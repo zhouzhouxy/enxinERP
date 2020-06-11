@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -69,5 +70,11 @@ public class MProcedureServiceImpl extends ServiceImpl<MProcedureMapper, MProced
        qw.lambda().eq(MProcedure::getParentId,pId)
                .eq(MProcedure::getProcedureName,procedureName);
         return mapper.selectOne(qw);
+    }
+
+    @Transactional
+    @Override
+    public void updateMProcedure(MProcedure mProcedure) {
+        mapper.updateById(mProcedure);
     }
 }

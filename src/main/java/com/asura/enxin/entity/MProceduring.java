@@ -69,6 +69,9 @@ public class MProceduring implements Serializable {
     @TableField("CHECKER")
     private String checker;
 
+    @TableField("CHECK_TAG")
+    private String checkTag;
+
     @TableField("CHECK_TIME")
     private LocalDateTime checkTime;
 

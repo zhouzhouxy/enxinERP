@@ -71,4 +71,10 @@ public class MProcedureModuleServiceImpl extends ServiceImpl<MProcedureModuleMap
                 .eq(MProcedureModule::getProductId,productId);
         procedureModuleMapper.update(new MProcedureModule(),uw);
     }
+
+    @Transactional
+    @Override
+    public void updateMProcedureModule(MProcedureModule mp) {
+        procedureModuleMapper.updateById(mp);
+    }
 }

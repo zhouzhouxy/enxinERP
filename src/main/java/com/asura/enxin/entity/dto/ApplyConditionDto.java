@@ -19,4 +19,5 @@ public class ApplyConditionDto implements Serializable {
     private LocalDateTime date2;
     private Integer pageNum;
     private Integer pageSize;
+    private String manufactureProcedureTag;
 }

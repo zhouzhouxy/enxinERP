@@ -50,5 +50,8 @@ public class MProcedureModuling implements Serializable {
     @TableField("SUBTOTAL")
     private BigDecimal subtotal;
 
+    @TableField("CHECK_TAG")
+    private String checkTag;
+
 
 }

@@ -25,4 +25,6 @@ public interface IMProcedureService extends IService<MProcedure> {
     List<MProcedure> selectListByPId(Integer id);
 
     MProcedure queryOneByOther(String workOrder, String procedureName);
+
+    void updateMProcedure(MProcedure mProcedure);
 }
