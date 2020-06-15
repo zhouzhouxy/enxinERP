@@ -6,6 +6,8 @@ import com.asura.enxin.entity.dto.InnerProduction2Dto;
 import com.asura.enxin.entity.dto.InnerProductionDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * InnoDB free: 6144 kB; (`PARENT_ID`) REFER `enxin/m_manufacture`(`ID`) 服务类
@@ -21,4 +23,6 @@ public interface IMProceduringService extends IService<MProceduring> {
     MProceduring queryOneByMProcedure(MProcedure mProcedure);
 
     void checkProceduringAndModule(InnerProductionDto dto);
+
+    List<MProceduring> queryProceduring(Integer id);
 }

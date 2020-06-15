@@ -103,6 +103,12 @@ public class SGatherServiceImpl extends ServiceImpl<SGatherMapper, SGather> impl
         gatherMapper.update(new SGather(),uw);
     }
 
+    @Override
+    public Integer insertSGather(SGather sGather) {
+        gatherMapper.insert(sGather);
+        return sGather.getId();
+    }
+
     //添加
     public Integer insertGather(SGather gather){
         gatherMapper.insert(gather);

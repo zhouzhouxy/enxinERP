@@ -1,6 +1,7 @@
 package com.asura.enxin.controller;
 
 
+import com.asura.enxin.entity.MProceduring;
 import com.asura.enxin.entity.dto.InnerProduction2Dto;
 import com.asura.enxin.entity.dto.InnerProductionDto;
 import com.asura.enxin.entity.vo.Result;
@@ -8,11 +9,9 @@ import com.asura.enxin.service.IMProceduringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -53,6 +52,13 @@ public class MProceduringController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    //根据生产工序id查询该工序的生产详情
+    @GetMapping("/query-proceduring")
+    public ResponseEntity<List<MProceduring>> queryProceduring(Integer id){
+        List<MProceduring> list=imProceduringService.queryProceduring(id);
+        return ResponseEntity.ok(list);
     }
 
 }

@@ -82,6 +82,11 @@ public class SPayDetailsServiceImpl extends ServiceImpl<SPayDetailsMapper, SPayD
         return flag.get();
     }
 
+    @Override
+    public List<String> selectProductId() {
+        return detailsMapper.selectProductId();
+    }
+
     public List<SPayDetails> queryListByPId(Integer pId){
         QueryWrapper<SPayDetails> qw = new QueryWrapper<>();
         qw.lambda().eq(SPayDetails::getParentId,pId);

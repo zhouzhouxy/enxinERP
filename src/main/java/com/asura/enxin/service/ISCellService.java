@@ -28,4 +28,6 @@ public interface ISCellService extends IService<SCell> {
     void dispatcher(Integer entryAmount, Integer gdId, Integer scellId);
 
     void outDispatcher(Integer outAmount, Integer sdId, Integer sCellId);
+
+    PageResult<SCell> dynamicStockQuery(SCellDto dto);
 }

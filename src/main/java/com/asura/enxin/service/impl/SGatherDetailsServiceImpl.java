@@ -52,4 +52,10 @@ public class SGatherDetailsServiceImpl extends ServiceImpl<SGatherDetailsMapper,
         uw.lambda().set(SGatherDetails::getGatherTag,"2").eq(SGatherDetails::getId,gdId);
         detailsMapper.update(new SGatherDetails(),uw);
     }
+
+    @Transactional
+    @Override
+    public void addSimpleSGatherDetails(SGatherDetails sGatherDetails) {
+        detailsMapper.insert(sGatherDetails);
+    }
 }

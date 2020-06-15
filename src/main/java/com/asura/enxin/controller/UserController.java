@@ -1,6 +1,7 @@
 package com.asura.enxin.controller;
 
 
+import com.asura.enxin.entity.User;
 import com.asura.enxin.service.IUserService;
 import com.asura.enxin.entity.vo.Result;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    //登录
     @PostMapping(value = "/login")
     public ResponseEntity<Result> login(@RequestParam(value = "username", required = false) String username,
                                        @RequestParam(value = "password", required = false) String password,
@@ -38,5 +40,11 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
+    //注册
+    @PutMapping(value="/register")
+    public ResponseEntity<Result> register(@RequestBody User user){
+        userService.register(user);
+        return ResponseEntity.ok(new Result("注册成功",true));
+    }
 }
 

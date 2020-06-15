@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -135,6 +136,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         sCellMapper.updateById(sCell);
         //修改入库明细表
         isGatherDetailsService.updateStockTag(gdId);
+        //
     }
 
     //出库调度
@@ -185,6 +187,39 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         //获取产品编号
         String productId=sCell.getProductId();
         imProcedureModuleService.updateRenewAmount(outAmount,mProcedure.getId(),productId);
+    }
+
+    @Override
+    public PageResult<SCell> dynamicStockQuery(SCellDto dto) {
+        QueryWrapper<SCell> qw=new QueryWrapper();
+        if(!StringUtils.isEmpty(dto.getFirstKindId())){
+            qw.lambda().eq(SCell::getFirstKindId,dto.getFirstKindId());
+        }
+        if(!StringUtils.isEmpty(dto.getSecondKindId())){
+            qw.lambda().eq(SCell::getSecondKindId,dto.getSecondKindId());
+        }
+        if(!StringUtils.isEmpty(dto.getThirdKindId())){
+            qw.lambda().eq(SCell::getThirdKindId,dto.getThirdKindId());
+        }
+        if(dto.getDate1()!=null){
+            qw.lambda().gt(SCell::getRegisterTime, DateUtil.format(dto.getDate1(), "yyyy-MM-dd") );
+        }
+        if(dto.getDate2()!=null){
+            qw.lambda().lt(SCell::getRegisterTime,DateUtil.format(dto.getDate2(), "yyyy-MM-dd"));
+        }
+        if(dto.getProductId()!=null){
+            qw.lambda().eq(SCell::getProductId,dto.getProductId());
+        }
+        if(StringUtils.isNotBlank(dto.getCheckTag())){
+            qw.lambda().eq(SCell::getCheckTag,dto.getCheckTag());
+        }
+
+        List<String> strings = isPayDetailsService.selectProductId();
+
+        qw.lambda().in(SCell::getProductId,strings);
+
+        Page<SCell> dFilePage = sCellMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);
+        return new PageResult<>(dFilePage.getTotal(),dFilePage.getRecords());
     }
 
 }

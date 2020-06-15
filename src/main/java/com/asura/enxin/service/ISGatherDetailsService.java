@@ -20,4 +20,6 @@ public interface ISGatherDetailsService extends IService<SGatherDetails> {
     List<SGatherDetails> queryListByPId(Integer pId);
 
     void updateStockTag(Integer gdId);
+
+    void addSimpleSGatherDetails(SGatherDetails sGatherDetails);
 }

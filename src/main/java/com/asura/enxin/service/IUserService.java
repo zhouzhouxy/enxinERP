@@ -17,4 +17,6 @@ public interface IUserService extends IService<User> {
     Result validateUser(String loginName, String password);
 
     User getUserByLoginName(String loginName);
+
+    void register(User user);
 }

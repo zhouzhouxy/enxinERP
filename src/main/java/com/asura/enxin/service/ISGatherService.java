@@ -25,4 +25,6 @@ public interface ISGatherService extends IService<SGather> {
     void passCheck(SGather sGather);
 
     void passDispatcher(Integer id);
+
+    Integer insertSGather(SGather sGather);
 }

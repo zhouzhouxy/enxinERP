@@ -68,4 +68,7 @@ public interface IDFileService extends IService<DFile> {
     void updateStockTag(Integer id);
 
     List<DFile> queryListByCondition(DFileDto dto);
+
+    DFile queryDFileByProductId(String productId);
+
 }

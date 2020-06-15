@@ -27,4 +27,8 @@ public interface IMProcedureService extends IService<MProcedure> {
     MProcedure queryOneByOther(String workOrder, String procedureName);
 
     void updateMProcedure(MProcedure mProcedure);
+
+    void handWork(Integer mProcedureId, Integer quliafyAmount);
+
+    void handOverCheck(MProcedure mProcedure, Integer nextId);
 }

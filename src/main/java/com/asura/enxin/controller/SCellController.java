@@ -49,6 +49,16 @@ public class SCellController {
         }
     }
 
+    @PostMapping("/dynamic-stock-query")
+    public ResponseEntity<PageResult<SCell>> dynamicStockQuery(@RequestBody SCellDto dto){
+        try {
+            PageResult<SCell> list= isCellService.dynamicStockQuery(dto);
+            return ResponseEntity.ok(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     //修改 复核通过，和变更
     @PutMapping("/updateSCell")
     public ResponseEntity<Result> updateSCell(@RequestBody SCell sCell){

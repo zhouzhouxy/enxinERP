@@ -4,6 +4,8 @@ import com.asura.enxin.entity.SPayDetails;
 import com.asura.enxin.entity.dto.SPayDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * InnoDB free: 6144 kB; (`PARENT_ID`) REFER `enxin/s_pay`(`ID`) 服务类
@@ -23,4 +25,6 @@ public interface ISPayDetailsService extends IService<SPayDetails> {
     SPayDetails queryById(Integer sdId);
 
     Boolean isAllPayTagPass(Integer id);
+
+    List<String> selectProductId();
 }

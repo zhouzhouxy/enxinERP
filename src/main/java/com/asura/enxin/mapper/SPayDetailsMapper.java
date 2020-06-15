@@ -2,6 +2,9 @@ package com.asura.enxin.mapper;
 
 import com.asura.enxin.entity.SPayDetails;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-06-05
  */
 public interface SPayDetailsMapper extends BaseMapper<SPayDetails> {
+
+    @Select("select distinct PRODUCT_ID from s_pay_details")
+    List<String> selectProductId();
 
 }

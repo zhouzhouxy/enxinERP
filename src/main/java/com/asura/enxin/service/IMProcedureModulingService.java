@@ -1,10 +1,9 @@
 package com.asura.enxin.service;
 
 import com.asura.enxin.entity.MProcedure;
-import com.asura.enxin.entity.MProcedureModule;
 import com.asura.enxin.entity.MProcedureModuling;
-import com.asura.enxin.entity.dto.InnerProcedureModuleDto;
 import com.asura.enxin.entity.dto.InnerProductionDto;
+import com.asura.enxin.entity.dto.MProcedureModulingDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.math.BigDecimal;
@@ -27,4 +26,6 @@ public interface IMProcedureModulingService extends IService<MProcedureModuling>
     void updateProcedureModuling(Integer id, String productId, BigDecimal realAmount, Integer thisAmount);
 
     List<MProcedureModuling> queryProcedureModuling(Integer id);
+
+    List<MProcedureModulingDto> queryProcedureModulingByPId(Integer id);
 }

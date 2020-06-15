@@ -65,6 +65,8 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         dFile.setChangeTag("0");
         //9.价格变更标志 0：未变更 1：已变更
         dFile.setPriceChangeTag("0");
+        //成本单价暂时先等于计划成本单价
+        dFile.setRealCostPrice(dFile.getCostPrice());
 
 
         //插入
@@ -311,6 +313,13 @@ public class DFileServiceImpl extends ServiceImpl<DFileMapper, DFile> implements
         }
         qw.lambda().eq(DFile::getCheckTag,"1");
         return fileMapper.selectList(qw);
+    }
+
+    @Override
+    public DFile queryDFileByProductId(String productId) {
+        QueryWrapper<DFile> qw = new QueryWrapper<>();
+        qw.lambda().eq(DFile::getProductId,productId);
+        return fileMapper.selectOne(qw);
     }
 
     @Override

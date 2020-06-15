@@ -236,7 +236,13 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
             qw.lambda().eq(MManufacture::getCheckTag,dto.getState());
         }
         if(StringUtils.isNotBlank(dto.getManufactureProcedureTag())){
-            qw.lambda().eq(MManufacture::getManufactureProcedureTag,dto.getManufactureProcedureTag());
+            if(dto.getManufactureProcedureTag().equals("3")){
+                //表示查询待登记和未审核的
+                qw.lambda().in(MManufacture::getManufactureProcedureTag,0,1);
+            }else{
+                qw.lambda().eq(MManufacture::getManufactureProcedureTag,
+                        dto.getManufactureProcedureTag());
+            }
         }
         Page<MManufacture> mApplyPage = manufactureMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);
 

@@ -146,6 +146,10 @@ public class MProceduringServiceImpl extends ServiceImpl<MProceduringMapper, MPr
         upProceduring(mp);
         //4.重新设计生产工序表M_Procedure
         MProcedure mProcedure1 = dto.getMProcedure();
+
+        //根据父Id查询生产总表
+        MManufacture mManufacture1 = imManufactureService.queryManufactureById(mProcedure1.getParentId());
+
         mProcedure1.setRealLabourHourAmount(mProcedure1.getRealLabourHourAmount().add(mp.getLabourHourAmount()));
         mProcedure1.setRealSubtotal(mProcedure1.getRealSubtotal().add(mp.getSubtotal()));
         mProcedure1.setRealModuleSubtotal(mProcedure1.getRealModuleSubtotal().add(s));
@@ -159,18 +163,21 @@ public class MProceduringServiceImpl extends ServiceImpl<MProceduringMapper, MPr
             //设置工序交接标志
             //工序完成标志为已审核所以工序交接可以开始
             mProcedure1.setProcedureTransferTag("0");
+            //交接时显示投产数量procedureTransferTag=生产总表的投产数量
+            mProcedure1.setDemandAmount(mManufacture1.getAmount());
         }
         //修改
         imProcedureService.updateMProcedure(mProcedure1);
 
         //5.修改生产总表
-        MManufacture mManufacture1 = imManufactureService.queryManufactureById(mProcedure1.getParentId());
+//        MManufacture mManufacture1 = imManufactureService.queryManufactureById(mProcedure1.getParentId());
         List<MProcedure> mProcedures = imProcedureService.selectListByPId(mManufacture1.getId());
         //修改生产过程标志
         //判断生产工序表下所有工序完成标志是否都是未开始或是已审核
         AtomicReference<Boolean> flag= new AtomicReference<>(true);
         mProcedures.stream().forEach(item->{
-            if(item.getProcedureFinishTag().equals("2")||item.getProcedureFinishTag().equals("1")){
+            if(item.getProcedureFinishTag().equals("2")||item.getProcedureFinishTag().equals("1")
+                                ||item.getProcedureTransferTag().equals("1")){
                 flag.set(false);
             }
         });
@@ -248,6 +255,19 @@ public class MProceduringServiceImpl extends ServiceImpl<MProceduringMapper, MPr
         imProcedureService.updateMProcedure(mProcedure);
 */
 
+    }
+
+    //根据工序id查询该工序的生产详情
+    @Override
+    public List<MProceduring> queryProceduring(Integer id) {
+        //生产工序和生产工序详情相同之处在于同一个父Id
+        MProcedure mProcedure = imProcedureService.queryById(id);
+        //根据父id和工序编号查询生产工序过程记录
+        QueryWrapper<MProceduring> qw = new QueryWrapper<>();
+        qw.lambda().eq(MProceduring::getParentId,mProcedure.getParentId())
+            .eq(MProceduring::getProcedureId,mProcedure.getProcedureId());
+
+        return mProceduringMapper.selectList(qw);
     }
 
     @Transactional

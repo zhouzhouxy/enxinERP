@@ -144,7 +144,7 @@ public class DFileController {
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestBody MaterialDto dto
     ){
-        PageResult<DFile> materials=idFileService.queryMaterial(dto,pageSize,pageNum);
+        PageResult<DFile> materials=idFileService.queryMaterial(dto,dto.getPageSize(),dto.getPageNum());
         if(materials.getList()==null){
             return ResponseEntity.notFound().build();
         }

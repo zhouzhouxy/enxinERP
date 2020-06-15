@@ -66,4 +66,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User getUserByLoginName(String loginName) {
         return null;
     }
+
+    @Override
+    public void register(User user) {
+        userMapper.insert(user);
+    }
 }

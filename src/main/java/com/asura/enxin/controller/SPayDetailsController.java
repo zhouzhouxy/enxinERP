@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * InnoDB free: 6144 kB; (`PARENT_ID`) REFER `enxin/s_pay`(`ID`) 前端控制器
@@ -29,5 +31,6 @@ public class SPayDetailsController {
         SPayDto dto = detailsService.queryByPId(pId);
         return ResponseEntity.ok(dto);
     }
+
 }
 

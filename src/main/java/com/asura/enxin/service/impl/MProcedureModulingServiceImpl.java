@@ -6,6 +6,7 @@ import com.asura.enxin.entity.MProcedureModuling;
 import com.asura.enxin.entity.MProceduring;
 import com.asura.enxin.entity.dto.InnerProcedureModuleDto;
 import com.asura.enxin.entity.dto.InnerProductionDto;
+import com.asura.enxin.entity.dto.MProcedureModulingDto;
 import com.asura.enxin.entity.dto.ProcedureAndModuleDto;
 import com.asura.enxin.mapper.MProcedureModulingMapper;
 import com.asura.enxin.service.IMProcedureModuleService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,4 +113,28 @@ public class MProcedureModulingServiceImpl extends ServiceImpl<MProcedureModulin
         qw.lambda().eq(MProcedureModuling::getParentId,id);
         return mProcedureModulingMapper.selectList(qw);
     }
+
+    //先根据生产工序查询出所有的工序生产过程
+    @Override
+    public List<MProcedureModulingDto> queryProcedureModulingByPId(Integer id) {
+//        List<MProcedureModuling> mProcedureModulings = imProceduringService.queryProceduring();
+        List<MProceduring> mProcedurings = imProceduringService.queryProceduring(id);
+
+        List<MProcedureModulingDto> list=new ArrayList<>();
+
+        mProcedurings.stream().forEach(item->{
+
+            //获取到每一个工序过程的id查询
+            List<MProcedureModuling> list1 = queryProcedureModuling(item.getId());
+            list1.forEach(item2->{
+                MProcedureModulingDto dto = new MProcedureModulingDto();
+                dto.setMProcedureModuling(item2);
+                dto.setRegister(item.getRegister());
+                dto.setRegisterTime(item.getRegisterTime());
+                list.add(dto);
+            });
+        });
+        return list;
+    }
+
 }
