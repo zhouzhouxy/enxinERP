@@ -2,6 +2,9 @@ package com.asura.enxin.mapper;
 
 import com.asura.enxin.entity.SGatherDetails;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-06-05
  */
 public interface SGatherDetailsMapper extends BaseMapper<SGatherDetails> {
+
+    @Select("select distinct product_id from s_gather_details where gather_tag=2")
+    List<String> selectProductId();
 
 }

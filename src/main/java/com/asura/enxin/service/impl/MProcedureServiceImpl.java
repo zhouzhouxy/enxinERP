@@ -163,6 +163,7 @@ public class MProcedureServiceImpl extends ServiceImpl<MProcedureMapper, MProced
             sGather.setCheckTag("1");
             sGather.setRegister(mManufacture.getRegister());
             sGather.setRegisterTime(LocalDateTime.now());
+            sGather.setCostPriceSum(mManufacture.getRealLabourCostPriceSum().add(mManufacture.getRealModuleCostPriceSum()));
             sGather.setAmountSum(mManufacture.getTestedAmount());
             sGather.setGatherTag("1");
             //插入

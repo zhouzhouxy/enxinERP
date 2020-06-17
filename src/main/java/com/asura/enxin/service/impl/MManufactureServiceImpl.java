@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -183,7 +184,7 @@ public class MManufactureServiceImpl extends ServiceImpl<MManufactureMapper, MMa
                 sPay.setPayId(idGenerator.generatorSpayId());
                 sPay.setReason("1");
                 sPay.setCheckTag("1");
-
+                sPay.setRegisterTime(LocalDateTime.now());
                 sPay.setReasonexact("派工单"+item.getParentId()+"-"+item.getProcedureName());
                 sPay.setPayTag("1");
                 //根据procedureId查询细节

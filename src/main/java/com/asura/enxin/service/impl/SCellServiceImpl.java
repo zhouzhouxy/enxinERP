@@ -146,6 +146,7 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         SCell sCell = sCellMapper.selectById(sCellId);
         //1修改库存 ,查询当前库存数量减去出库数量
         sCell.setAmount(sCell.getAmount().subtract(BigDecimal.valueOf(outAmount)));
+        sCellMapper.updateById(sCell);
         //2修改出库明细表出库标志和确认出库数
         isPayDetailsService.updatePaidAmountAndPayTag(outAmount,sdId);
         //2.1.先根据出库明细查询出库表中的父Id
@@ -213,9 +214,12 @@ public class SCellServiceImpl extends ServiceImpl<SCellMapper, SCell> implements
         if(StringUtils.isNotBlank(dto.getCheckTag())){
             qw.lambda().eq(SCell::getCheckTag,dto.getCheckTag());
         }
+        if(StringUtils.isNotBlank(dto.getProductId())){
+            qw.lambda().eq(SCell::getProductId,dto.getProductId());
+        }
 
-        List<String> strings = isPayDetailsService.selectProductId();
-
+//        List<String> strings = isPayDetailsService.selectProductId();
+        List<String> strings = isGatherDetailsService.selectProductId();
         qw.lambda().in(SCell::getProductId,strings);
 
         Page<SCell> dFilePage = sCellMapper.selectPage(new Page<>(dto.getPageNum(), dto.getPageSize()), qw);

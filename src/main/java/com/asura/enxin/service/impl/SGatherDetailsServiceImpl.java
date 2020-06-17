@@ -58,4 +58,9 @@ public class SGatherDetailsServiceImpl extends ServiceImpl<SGatherDetailsMapper,
     public void addSimpleSGatherDetails(SGatherDetails sGatherDetails) {
         detailsMapper.insert(sGatherDetails);
     }
+
+    @Override
+    public List<String> selectProductId() {
+        return detailsMapper.selectProductId();
+    }
 }

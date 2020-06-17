@@ -196,7 +196,10 @@ public class MDesignProcedureServiceImpl extends ServiceImpl<MDesignProcedureMap
                 //
                 moduleService.delByPId(item.getId());
             });
+             procedure.setModuleCostPriceSum(BigDecimal.ZERO);
         }
+         //物料总成本为0
+
         procedureMapper.updateById(procedure);
     }
 

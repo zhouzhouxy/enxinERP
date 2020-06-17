@@ -164,7 +164,10 @@ public class MProceduringServiceImpl extends ServiceImpl<MProceduringMapper, MPr
             //工序完成标志为已审核所以工序交接可以开始
             mProcedure1.setProcedureTransferTag("0");
             //交接时显示投产数量procedureTransferTag=生产总表的投产数量
-            mProcedure1.setDemandAmount(mManufacture1.getAmount());
+            if(mProcedure1.getDetailsNumber().intValue()==1){
+                //如果是第一道工序则设置要求数量为生产总表的数量
+                mProcedure1.setDemandAmount(mManufacture1.getAmount());
+            }
         }
         //修改
         imProcedureService.updateMProcedure(mProcedure1);

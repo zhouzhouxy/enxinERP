@@ -22,4 +22,7 @@ public interface ISGatherDetailsService extends IService<SGatherDetails> {
     void updateStockTag(Integer gdId);
 
     void addSimpleSGatherDetails(SGatherDetails sGatherDetails);
+
+
+    List<String> selectProductId();
 }
