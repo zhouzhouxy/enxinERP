@@ -19,7 +19,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <spring.version>5.2.4.RELEASE</spring.version>
+    <spring.version>5.2.20.RELEASE</spring.version>
     <mybatis-plus.version>3.3.1.tmp</mybatis-plus.version>
   </properties>
 
